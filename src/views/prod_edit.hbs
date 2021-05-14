@@ -1,0 +1,255 @@
+<div class="container" style="text-align: center; margin-bottom: 5ex">
+    <h1>Información del Producto</h1><br>
+</div>
+
+<div class="m-0 row justify-content-center container">
+    <form {{#each producto}} action="/prod/update/{{_id}}" {{/each}} method="POST" enctype="multipart/form-data" class="m-0 row needs-validation justify-content-center container "  novalidate>
+        <div style="width: 900px" class="m-0 row justify-content-center container needs-validation">
+            <div class="col-md-4" style="min-width: 300px;">
+                <div class="swiper-container" style="height:420px; padding-top:0px">
+                    <div style="text-align: center;" class="swiper-wrapper">
+                        {{#each producto}}
+                            {{#each imageURL}}
+                            <img src="{{this}}" class="swiper-slide" style="height: 95%;"/>
+                            {{/each }}
+                        {{/each}}
+                    </div>
+                    <div class="swiper-pagination"></div>
+                </div>
+                    <div class="mt-2" style="height: min-content; padding-top:0px">
+                        <span class="input-group-text" id="spam_image">Reemplazar imagenes</span>
+                        <input type="file" class="form-control" placeholder="Precio" id="var_inputs5" name="image" accept=".jpg,.png,.gif,.tiff,.svg" multiple disabled required>
+                    </div>
+            </div>
+            <div class="col-md m-0 row justify-content-center" style="min-width: 387px; max-width:500px">
+                <div style="max-width: 500px; padding-top: 20px; padding-right:15px; ">
+                    <div class="col-md-12 input-group mb-2 flex-row-reverse " style="height: min-content; padding-bootom">
+                        {{!-- DELETE --}}
+                        <button type="button" class="btn btn-secundary btn-circle" id="button_delete">
+                            
+                            <a {{#each producto}} href="/prod/delete/{{_id}}" {{/each}} style="color: white;" id="a_delete" style="display: block;">T</a>
+                            
+                        </button>
+                        {{!-- EDITAR --}}
+                        <button type="button" class="btn btn-secundary btn-circle" id="button_edit" onclick="btn_active()">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
+                                <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"/>
+                            </svg>
+                        </button>
+                        
+                    </div>
+                    <div class="col-md-12 input-group mb-3" style="height: min-content; padding-top:0px">
+                        <span class="input-group-text">Nombre</span>
+                        <input type="text" class="form-control" placeholder="Nombre del producto" name="title" id="var_inputs1" value="{{#each producto}}{{title}}{{/each}}" disabled required>                  
+                    </div>
+                    <div class="col-md-12 input-group mb-3" style="height: min-content; padding-top:0px">
+                        <span class="input-group-text">Categoria</span>
+                        <select type="text" class="form-control" placeholder="Categoria" id="var_inputs2" name="category" value="" disabled required>
+                            <option selected value="{{#each producto}}{{category}}{{/each}}">{{#each producto}}{{category}}{{/each}}</option>
+                            <option value="Tecnologia">Tecnologia</option>
+                            <option value="Digital">Digital</option>
+                            <option value="Literatura">Literatura</option>
+                            <option value="Salud">Salud</option>
+                            <option value="Alimentos">Alimentos</option>
+                            <option value="Otros">Otros</option>
+                        </select>
+                    </div>
+                    <div class="col-md-12 input-group mb-3" style="height: min-content; padding-top:0px">
+                        <span class="input-group-text">Precio</span>
+                        <input type="number" min="0.01" max="100000.00" step=".01" class="form-control" placeholder="Precio" id="var_inputs3" value="{{#each producto}}{{price}}{{/each}}" name="price" disabled required> 
+                    </div>
+                    <div class="col-md-12 mb-3" style="height: min-content; padding-top:0px;">
+                        <span class="input-group-text" id="spam_description">Descripcion</span>
+                        <textarea type="text" class="form-control" rows="3" minlength="3" id="var_inputs4" name="description" disabled required/>{{#each producto}}{{description}}{{/each}}</textarea> 
+                    </div>                                                                               
+                </div>
+            </div>
+            <div class="col-md-12 mt-4" style="height: min-content; padding-bottom: 30px; text-align: center;">
+                <button class="btn btn-primary" type="submit" type="button" onclick="this.classList.toggle('button--loading')" id="btn_save" disabled>
+                    <span class="button__text">Guardar</span>
+                </button>
+            </div> 
+        </div>       
+    </form>
+ 
+</div>
+
+<style>
+    
+    #btn_save {
+        background-color: #006ce0; 
+        border-radius: .55rem;
+    }
+
+    #a_delete {
+        position: relative;
+        border: none;
+        outline: none;
+    }
+
+    #var_inputs2 {
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
+        background-repeat: no-repeat;
+        background-size: 16px 12px;
+        background-position: right .75rem center;
+    }
+
+    a {
+        text-decoration: none;
+        background-repeat: no-repeat;
+    }
+
+    #button_edit {
+        color: #fff; 
+        background-color:#006ce0; 
+        border-radius: 15px;
+        width: 30px;
+        height: 30px;
+        padding: 0px 0px 5px 0px;
+    } 
+
+    #button_delete {
+        color: #fff; 
+        background-color:#e00000; 
+        border-radius: 15px;
+        width: 30px;
+        height: 30px;
+        padding: 0px 0px 5px 0px;
+        margin-left: 10px;
+        background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='white' class='bi bi-trash-fill' viewBox='0 0 16 16'%3e%3cpath d='M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z'/%3e%3c/svg%3e");
+        background-repeat: no-repeat;
+        background-size: 18px 18px;
+        background-position: left 5px center;
+    } 
+
+    #spam_description {
+        border-radius: .55rem .55rem .0rem .0rem;
+    }
+
+    #var_inputs4 {
+        border-radius: .0rem .0rem .55rem .55rem;
+    }
+
+    #spam_image {
+        border-radius: .55rem .55rem .0rem .0rem;
+    }
+
+    #var_inputs5 {
+        border-radius: .0rem .0rem .55rem .55rem;
+    }    
+
+    .form-control {
+        border-radius: .55rem;
+    }
+
+    .input-group-text {
+        background-color: #006ce0;
+        color: #fff;
+        border-color: #006ce0;
+        border-radius: .55rem;
+        min-width: 95px;
+        text-align: center;
+    }
+
+    img {
+        object-fit: contain;
+    }
+
+    td {
+        max-width: 60px;
+        word-wrap: break-word;
+    }
+    div {
+        word-wrap: break-word;
+    }
+    .swiper-container {
+        padding-top: 20px;
+        width: 100%;
+        height: 100%;
+    }
+    .swiper-slide {
+      text-align: center;
+
+      /* Center slide text vertically */
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: -webkit-flex;
+      display: flex;
+      -webkit-box-pack: center;
+      -ms-flex-pack: center;
+      -webkit-justify-content: center;
+      justify-content: center;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      -webkit-align-items: center;
+      align-items: center;
+    }
+
+  .button__text {
+    transition: all 0.2s;
+  }
+
+  .button--loading .button__text {
+    visibility: hidden;
+    opacity: 0;
+  }
+
+  .button--loading::after {
+    content: "";
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    border: 4px solid transparent;
+    border-top-color: #ffffff;
+    border-radius: 50%;
+    animation: button-loading-spinner 1s ease infinite;
+  }
+
+  @keyframes button-loading-spinner {
+    from {
+      transform: rotate(0turn);
+    }
+
+    to {
+      transform: rotate(1turn);
+    }
+  }
+
+</style>
+
+<script>
+    
+    //Validation
+    (function () {
+    'use strict'
+    var forms = document.querySelectorAll('.needs-validation')
+    Array.prototype.slice.call(forms)
+        .forEach(function (form) {
+        form.addEventListener('submit', function (event) {
+            if (!form.checkValidity()) {
+            event.preventDefault()
+            event.stopPropagation()
+            }
+            form.classList.add('was-validated')
+        }, false)
+        })
+    })()
+
+    //ENABLE FORMUL    
+    function btn_active(){
+            document.getElementById("var_inputs1").disabled = false;
+            document.getElementById("var_inputs2").disabled = false;
+            document.getElementById("var_inputs3").disabled = false;
+            document.getElementById("var_inputs4").disabled = false;
+            document.getElementById("var_inputs5").disabled = false;
+            document.getElementById("btn_save").disabled = false
+            var catestyle = document.getElementById("var_inputs2");
+            catestyle.style.backgroundColor="#fff";
+    }
+</script>
+

@@ -1,0 +1,130 @@
+<div class="container" style="text-align: center">
+    <h1>Nuevo Producto</h1>
+</div>
+
+<div style="margin-top: 10ex">
+  <form action="/prod/add" method="POST" enctype="multipart/form-data" class="row g-4 needs-validation d-flex flex-row justify-content-center align-items-center"  novalidate>
+    <div class="col-md-3" style="max-width: 50ex; min-width: 50ex">
+      <label for="validationCustom01" class="form-label">Nombre</label>
+      <input type="text" class="form-control" id="validationCustom01" name="title" placeholder="Escribe el nombre de tu producto" minlength="3" required autofocus>
+    </div>
+    <div class="col-md-3" style="max-width: 50ex; min-width: 50ex">
+      <label for="validationCustom02" class="form-label">Categoria</label>
+      <select class="form-select" id="validationCustom02" name="category" style="border-radius: .55rem;" required>
+        <option selected disabled value="">Elige una categoria</option>
+        <option value="Tecnologia">Tecnologia</option>
+        <option value="Digital">Digital</option>
+        <option value="Literatura">Literatura</option>
+        <option value="Salud">Salud</option>
+        <option value="Alimentos">Alimentos</option>
+        <option value="Otros">Otros</option>
+      </select>
+    </div>
+    <div class="col-md-3" style="max-width: 50ex; min-width: 50ex">
+      
+      <label for="validationCustom03" class="form-label">Precio</label>
+      <div>
+        <span style="position: absolute; margin-left: 10px; margin-top: 7px;" style="text-decoration-color: darkgray;">S/.</span>
+        <input type="number" min="0.01" max="100000.00" value="0.00" step=".01" class="form-control" id="validationCustom03" name="price" placeholder="Coloca el precio del producto" style="padding-left: 30px;" required>        
+      </div>
+
+    </div>
+    <div class="col-md-4" style="max-width: 50ex; min-width: 50ex">
+      <label class="form-label" for="validationCustom04">Descripción</label>
+      <textarea type="text" class="form-control" id="validationCustom04" name="description" rows="3" minlength="3" placeholder="Describe tu producto" required></textarea>                  
+    </div>
+    <div class="col-md-4" style="max-width: 50ex; min-width: 50ex">
+      <div class="">
+          <label for="validationCustom05" class="form-label">Imagenes</label>
+          <input type="file" class="form-control" id="validationCustom05" name="image" accept=".jpg,.png,.gif,.tiff,.svg" multiple required>
+      </div>
+    </div>
+
+    <div class="col-12" style="text-align: center; margin-top: 10ex;">
+      <button class="btn btn-primary button" type="submit" type="button" onclick="this.classList.toggle('button--loading')"  id="button_anim">
+        <span class="button__text" >Subir producto</span>
+      </button>
+      
+    </div>
+
+
+  </form>
+</div>
+
+
+<script>
+    //Validation
+    (function () {
+    'use strict'
+    var forms = document.querySelectorAll('.needs-validation')
+
+    Array.prototype.slice.call(forms)
+        .forEach(function (form) {
+        form.addEventListener('submit', function (event) {
+            if (!form.checkValidity()) {
+            event.preventDefault()
+            event.stopPropagation()
+            
+            }
+            form.classList.add('was-validated')
+        }, false)
+        })
+    })()
+    
+</script>
+
+<style>
+
+  #button_anim {
+    background-color: #006ce0;
+    border-radius: .55rem;
+    padding-bottom: 5px;
+  }
+
+  .button {
+    position: relative;
+    border: none;
+    outline: none;
+    cursor: pointer;
+  }
+
+  .form-control {
+        border-radius: .55rem;
+    }
+
+  .button__text {
+    transition: all 0.2s;
+  }
+
+  .button--loading .button__text {
+    visibility: hidden;
+    opacity: 0;
+  }
+
+  .button--loading::after {
+    content: "";
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    border: 4px solid transparent;
+    border-top-color: #ffffff;
+    border-radius: 50%;
+    animation: button-loading-spinner 1s ease infinite;
+  }
+
+  @keyframes button-loading-spinner {
+    from {
+      transform: rotate(0turn);
+    }
+
+    to {
+      transform: rotate(1turn);
+    }
+  }
+
+</style>

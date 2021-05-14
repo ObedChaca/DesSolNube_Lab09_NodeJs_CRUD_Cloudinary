@@ -1,0 +1,94 @@
+<div class="container" style="text-align: center">
+    <h1>Productos Registrados</h1>
+</div>
+
+<div class="m-0 row justify-content-center">
+    <div style="margin-top: 10ex; width: 900px" class="col-auto">
+        <table class="table table-hover table-responsive">
+            <tbody>
+                {{#each productos}}
+                    <tr>
+                        <td class="col-md-3" style="width: 200px;">
+                            <div class="swiper-container" style="height: 200px;">
+                                <div style="text-align: center;" class="swiper-wrapper">
+                                    {{#each imageURL}}
+                                    <img src="{{this}}" class="swiper-slide" style="max-height:160px"/>
+                                    {{/each }}
+                                </div>
+                                <div class="swiper-pagination"></div>
+                            </div>
+                        </td>                    
+                        <td  style="padding-left: 30px;">
+                            <div class="row" style="max-width: 500px; padding-top: 15px;">
+                                <div class="col-md-12" style="">
+                                    <a href="/prod/update/{{_id}}" style="color: black;">
+                                        <p style="font-size: 22px;">
+                                            {{title}}
+                                        </p>
+                                    </a>
+                                    <br>
+                                    <label style="font-size: 12px; vertical-align:top; color:#007Aff"  >
+                                        ({{category}})
+                                    </label>
+                                </div>
+                                <div class="col-md-12" style="min-height:65px;">
+                                    <label style="font-size:medium; color:rgb(126, 126, 126)">
+                                        {{description}}
+                                    </label> 
+                                    
+                                </div>
+                                <div class="col-md-12">
+                                    <label style="font-size:x-large">
+                                        <b>S/.{{price}}</b> 
+                                    </label>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>               
+                {{/each}}
+            </tbody>
+        </table>
+
+    </div>    
+</div>
+
+<style>
+    img {
+        object-fit: contain;
+    }
+
+    a p {
+        margin: 0;
+        padding: 0;
+        display: inline-block;        
+    }
+    td {
+        max-width: 60px;
+        word-wrap: break-word;
+    }
+    div {
+        word-wrap: break-word;
+    }
+    .swiper-container {
+        padding-top: 20px;
+        width: 100%;
+        height: 170px;
+    }
+    .swiper-slide {
+      text-align: center;
+
+      /* Center slide text vertically */
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: -webkit-flex;
+      display: flex;
+      -webkit-box-pack: center;
+      -ms-flex-pack: center;
+      -webkit-justify-content: center;
+      justify-content: center;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      -webkit-align-items: center;
+      align-items: center;
+    }
+</style>
